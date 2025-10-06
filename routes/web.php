@@ -17,7 +17,8 @@ use App\Http\Controllers\ChurchController;
 */
 
 // Public routes
-Route::get('/', [ChurchController::class, 'index'])->name('churches.index');
+Route::get('/', [ChurchController::class, 'index'])->name('home');
+Route::get('/churches', [ChurchController::class, 'list'])->name('churches.index');
 Route::get('/churches/{church}', [ChurchController::class, 'show'])->name('churches.show');
 
 Route::get('/dashboard', function () {

@@ -25,6 +25,8 @@ class Member extends Model
         'is_sidi',
         'baptism_date',
         'sidi_date',
+        'education',
+        'occupation',
         'ministry_notes',
         'notes',
         'is_active',

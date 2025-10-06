@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $church->name }} - {{ $church->city }}, {{ $church->province }}</title>
-    <meta name="description" content="Gereja {{ $church->name }} di {{ $church->city }}, {{ $church->province }}. {{ $church->address }}">
+    <title><?php echo e($church->name); ?> - <?php echo e($church->city); ?>, <?php echo e($church->province); ?></title>
+    <meta name="description" content="Gereja <?php echo e($church->name); ?> di <?php echo e($church->city); ?>, <?php echo e($church->province); ?>. <?php echo e($church->address); ?>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -18,16 +18,16 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center py-4">
                 <div class="flex items-center">
-                    @if($church->logo)
-                        <img src="{{ Storage::url($church->logo) }}" alt="{{ $church->name }}" class="w-10 h-10 rounded-full mr-3">
-                    @else
+                    <?php if($church->logo): ?>
+                        <img src="<?php echo e(Storage::url($church->logo)); ?>" alt="<?php echo e($church->name); ?>" class="w-10 h-10 rounded-full mr-3">
+                    <?php else: ?>
                         <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                             <i class="fas fa-church text-blue-600"></i>
                         </div>
-                    @endif
+                    <?php endif; ?>
                     <div>
-                        <h1 class="text-xl font-bold text-gray-900">{{ $church->name }}</h1>
-                        <p class="text-sm text-gray-600">{{ $church->city }}, {{ $church->province }}</p>
+                        <h1 class="text-xl font-bold text-gray-900"><?php echo e($church->name); ?></h1>
+                        <p class="text-sm text-gray-600"><?php echo e($church->city); ?>, <?php echo e($church->province); ?></p>
                     </div>
                 </div>
                 <nav class="hidden md:flex items-center space-x-6">
@@ -53,34 +53,36 @@
     <section class="bg-gradient-to-br from-blue-600 via-blue-700 to-purple-800 text-white py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                @if($church->logo)
-                    <img src="{{ Storage::url($church->logo) }}" alt="{{ $church->name }}" class="w-32 h-32 rounded-full mx-auto mb-8 border-4 border-white shadow-lg">
-                @else
+                <?php if($church->logo): ?>
+                    <img src="<?php echo e(Storage::url($church->logo)); ?>" alt="<?php echo e($church->name); ?>" class="w-32 h-32 rounded-full mx-auto mb-8 border-4 border-white shadow-lg">
+                <?php else: ?>
                     <div class="w-32 h-32 bg-white bg-opacity-20 rounded-full flex items-center justify-center mx-auto mb-8 border-4 border-white shadow-lg">
                         <i class="fas fa-church text-5xl"></i>
                     </div>
-                @endif
-                <h1 class="text-5xl font-bold mb-4">{{ $church->name }}</h1>
-                <p class="text-xl mb-6 text-blue-100">{{ $church->city }}, {{ $church->province }}</p>
+                <?php endif; ?>
+                <h1 class="text-5xl font-bold mb-4"><?php echo e($church->name); ?></h1>
+                <p class="text-xl mb-6 text-blue-100"><?php echo e($church->city); ?>, <?php echo e($church->province); ?></p>
                 <p class="text-lg mb-8 text-blue-200 max-w-3xl mx-auto">
-                    Selamat datang di {{ $church->name }}. Kami adalah komunitas yang berkomitmen untuk melayani Tuhan dan sesama dengan kasih dan iman yang teguh.
+                    Selamat datang di <?php echo e($church->name); ?>. Kami adalah komunitas yang berkomitmen untuk melayani Tuhan dan sesama dengan kasih dan iman yang teguh.
                 </p>
                 <div class="flex flex-wrap justify-center gap-4">
-                    @if($church->phone)
-                        <a href="tel:{{ $church->phone }}" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-lg transition flex items-center">
-                            <i class="fas fa-phone mr-2"></i>{{ $church->phone }}
+                    <?php if($church->phone): ?>
+                        <a href="tel:<?php echo e($church->phone); ?>" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-lg transition flex items-center">
+                            <i class="fas fa-phone mr-2"></i><?php echo e($church->phone); ?>
+
                         </a>
-                    @endif
-                    @if($church->email)
-                        <a href="mailto:{{ $church->email }}" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-lg transition flex items-center">
-                            <i class="fas fa-envelope mr-2"></i>{{ $church->email }}
+                    <?php endif; ?>
+                    <?php if($church->email): ?>
+                        <a href="mailto:<?php echo e($church->email); ?>" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-lg transition flex items-center">
+                            <i class="fas fa-envelope mr-2"></i><?php echo e($church->email); ?>
+
                         </a>
-                    @endif
-                    @if($church->website)
-                        <a href="{{ $church->website }}" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-lg transition flex items-center">
+                    <?php endif; ?>
+                    <?php if($church->website): ?>
+                        <a href="<?php echo e($church->website); ?>" target="_blank" class="bg-white bg-opacity-20 hover:bg-opacity-30 px-6 py-3 rounded-lg transition flex items-center">
                             <i class="fas fa-external-link-alt mr-2"></i>Website Resmi
                         </a>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -90,7 +92,7 @@
     <section id="tentang" class="py-16 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Tentang {{ $church->name }}</h2>
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Tentang <?php echo e($church->name); ?></h2>
                 <p class="text-lg text-gray-600 max-w-3xl mx-auto">
                     Kami adalah komunitas yang berkomitmen untuk melayani Tuhan dan sesama dengan kasih dan iman yang teguh. 
                     Bergabunglah dengan kami dalam perjalanan iman yang penuh berkat.
@@ -172,56 +174,56 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- Contact Information -->
                 <div class="space-y-6">
-                    @if($church->address)
+                    <?php if($church->address): ?>
                         <div class="flex items-start">
                             <div class="bg-blue-100 p-3 rounded-lg mr-4">
                                 <i class="fas fa-map-marker-alt text-blue-600"></i>
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-1">Alamat</h3>
-                                <p class="text-gray-600">{{ $church->address }}</p>
-                                @if($church->postal_code)
-                                    <p class="text-gray-600">{{ $church->postal_code }}</p>
-                                @endif
+                                <p class="text-gray-600"><?php echo e($church->address); ?></p>
+                                <?php if($church->postal_code): ?>
+                                    <p class="text-gray-600"><?php echo e($church->postal_code); ?></p>
+                                <?php endif; ?>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @if($church->phone)
+                    <?php if($church->phone): ?>
                         <div class="flex items-start">
                             <div class="bg-green-100 p-3 rounded-lg mr-4">
                                 <i class="fas fa-phone text-green-600"></i>
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-1">Telepon</h3>
-                                <a href="tel:{{ $church->phone }}" class="text-blue-600 hover:underline">{{ $church->phone }}</a>
+                                <a href="tel:<?php echo e($church->phone); ?>" class="text-blue-600 hover:underline"><?php echo e($church->phone); ?></a>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @if($church->email)
+                    <?php if($church->email): ?>
                         <div class="flex items-start">
                             <div class="bg-purple-100 p-3 rounded-lg mr-4">
                                 <i class="fas fa-envelope text-purple-600"></i>
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-1">Email</h3>
-                                <a href="mailto:{{ $church->email }}" class="text-blue-600 hover:underline">{{ $church->email }}</a>
+                                <a href="mailto:<?php echo e($church->email); ?>" class="text-blue-600 hover:underline"><?php echo e($church->email); ?></a>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
 
-                    @if($church->website)
+                    <?php if($church->website): ?>
                         <div class="flex items-start">
                             <div class="bg-orange-100 p-3 rounded-lg mr-4">
                                 <i class="fas fa-globe text-orange-600"></i>
                             </div>
                             <div>
                                 <h3 class="text-lg font-semibold text-gray-900 mb-1">Website</h3>
-                                <a href="{{ $church->website }}" target="_blank" class="text-blue-600 hover:underline">{{ $church->website }}</a>
+                                <a href="<?php echo e($church->website); ?>" target="_blank" class="text-blue-600 hover:underline"><?php echo e($church->website); ?></a>
                             </div>
                         </div>
-                    @endif
+                    <?php endif; ?>
                 </div>
 
                 <!-- Quick Actions -->
@@ -231,11 +233,11 @@
                         <a href="/admin" class="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition flex items-center justify-center">
                             <i class="fas fa-sign-in-alt mr-2"></i>Login Admin
                         </a>
-                        @if($church->website)
-                            <a href="{{ $church->website }}" target="_blank" class="w-full bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition flex items-center justify-center">
+                        <?php if($church->website): ?>
+                            <a href="<?php echo e($church->website); ?>" target="_blank" class="w-full bg-gray-600 text-white px-6 py-3 rounded-lg hover:bg-gray-700 transition flex items-center justify-center">
                                 <i class="fas fa-external-link-alt mr-2"></i>Kunjungi Website Resmi
                             </a>
-                        @endif
+                        <?php endif; ?>
                         <a href="/churches" class="w-full border border-gray-300 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-50 transition flex items-center justify-center">
                             <i class="fas fa-list mr-2"></i>Lihat Daftar Gereja Lain
                         </a>
@@ -251,17 +253,18 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
                     <div class="flex items-center mb-4">
-                        @if($church->logo)
-                            <img src="{{ Storage::url($church->logo) }}" alt="{{ $church->name }}" class="w-10 h-10 rounded-full mr-3">
-                        @else
+                        <?php if($church->logo): ?>
+                            <img src="<?php echo e(Storage::url($church->logo)); ?>" alt="<?php echo e($church->name); ?>" class="w-10 h-10 rounded-full mr-3">
+                        <?php else: ?>
                             <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
                                 <i class="fas fa-church text-blue-600"></i>
                             </div>
-                        @endif
-                        <h3 class="text-xl font-bold">{{ $church->name }}</h3>
+                        <?php endif; ?>
+                        <h3 class="text-xl font-bold"><?php echo e($church->name); ?></h3>
                     </div>
                     <p class="text-gray-400 mb-4">
-                        {{ $church->city }}, {{ $church->province }}
+                        <?php echo e($church->city); ?>, <?php echo e($church->province); ?>
+
                     </p>
                     <p class="text-gray-400 text-sm">
                         Komunitas yang berkomitmen untuk melayani Tuhan dan sesama dengan kasih dan iman yang teguh.
@@ -271,15 +274,15 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Kontak</h4>
                     <div class="space-y-2 text-gray-400">
-                        @if($church->address)
-                            <p><i class="fas fa-map-marker-alt mr-2"></i>{{ $church->address }}</p>
-                        @endif
-                        @if($church->phone)
-                            <p><i class="fas fa-phone mr-2"></i>{{ $church->phone }}</p>
-                        @endif
-                        @if($church->email)
-                            <p><i class="fas fa-envelope mr-2"></i>{{ $church->email }}</p>
-                        @endif
+                        <?php if($church->address): ?>
+                            <p><i class="fas fa-map-marker-alt mr-2"></i><?php echo e($church->address); ?></p>
+                        <?php endif; ?>
+                        <?php if($church->phone): ?>
+                            <p><i class="fas fa-phone mr-2"></i><?php echo e($church->phone); ?></p>
+                        <?php endif; ?>
+                        <?php if($church->email): ?>
+                            <p><i class="fas fa-envelope mr-2"></i><?php echo e($church->email); ?></p>
+                        <?php endif; ?>
                     </div>
                 </div>
                 
@@ -292,18 +295,18 @@
                         <a href="/churches" class="block text-gray-400 hover:text-white transition">
                             <i class="fas fa-list mr-2"></i>Daftar Gereja
                         </a>
-                        @if($church->website)
-                            <a href="{{ $church->website }}" target="_blank" class="block text-gray-400 hover:text-white transition">
+                        <?php if($church->website): ?>
+                            <a href="<?php echo e($church->website); ?>" target="_blank" class="block text-gray-400 hover:text-white transition">
                                 <i class="fas fa-external-link-alt mr-2"></i>Website Resmi
                             </a>
-                        @endif
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
             
             <div class="border-t border-gray-700 mt-8 pt-8 text-center">
                 <p class="text-gray-400">
-                    &copy; {{ date('Y') }} {{ $church->name }}. All rights reserved.
+                    &copy; <?php echo e(date('Y')); ?> <?php echo e($church->name); ?>. All rights reserved.
                 </p>
                 <p class="text-gray-500 text-sm mt-2">
                     Powered by Multi-Church Platform
@@ -314,3 +317,4 @@
 </body>
 </html>
 
+<?php /**PATH C:\laragon\www\gkjprambanan\resources\views/churches/show.blade.php ENDPATH**/ ?>

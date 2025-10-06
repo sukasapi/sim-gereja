@@ -22,11 +22,13 @@ class Church extends Model
         'logo',
         'config',
         'is_active',
+        'is_default',
     ];
 
     protected $casts = [
         'config' => 'array',
         'is_active' => 'boolean',
+        'is_default' => 'boolean',
     ];
 
     // Relasi ke RegionType
@@ -57,5 +59,24 @@ class Church extends Model
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
+    }
+
+    // Scope untuk gereja default
+    public function scopeDefault($query)
+    {
+        return $query->where('is_default', true);
+    }
+
+    // Mutator untuk memastikan hanya satu gereja default
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::saving(function ($church) {
+            if ($church->is_default) {
+                // Set semua gereja lain menjadi tidak default
+                static::where('id', '!=', $church->id)->update(['is_default' => false]);
+            }
+        });
     }
 }

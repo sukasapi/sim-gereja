@@ -5,6 +5,7 @@ namespace App\Filament\Admin\Resources;
 use App\Filament\Admin\Resources\ChurchResource\Pages;
 use App\Filament\Admin\Resources\ChurchResource\RelationManagers;
 use App\Models\Church;
+use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -12,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Facades\Filament;
 
 class ChurchResource extends Resource
 {
@@ -72,6 +74,11 @@ class ChurchResource extends Resource
                         Forms\Components\Toggle::make('is_active')
                             ->label('Aktif')
                             ->default(true),
+                        Forms\Components\Toggle::make('is_default')
+                            ->label('Gereja Default (Halaman Depan)')
+                            ->helperText('Hanya superadmin yang dapat mengatur ini. Gereja ini akan ditampilkan sebagai halaman depan website.')
+                            ->default(false)
+                            ->visible(fn () => static::canSetDefault()),
                     ])->columns(2),
             ]);
     }
@@ -106,6 +113,14 @@ class ChurchResource extends Resource
                     ->falseIcon('heroicon-o-x-circle')
                     ->trueColor('success')
                     ->falseColor('danger'),
+                Tables\Columns\IconColumn::make('is_default')
+                    ->label('Default')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-star')
+                    ->falseIcon('heroicon-o-star')
+                    ->trueColor('warning')
+                    ->falseColor('gray')
+                    ->visible(fn () => static::canSetDefault()),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Dibuat')
                     ->dateTime()
@@ -142,14 +157,19 @@ class ChurchResource extends Resource
 
     public static function getEloquentQuery(): Builder
     {
-        $user = auth()->user();
+        /** @var User|null $user */
+        $user = Filament::auth()->user();
         
-        if ($user->isSuperAdmin()) {
+        if ($user && $user->isSuperAdmin()) {
             return parent::getEloquentQuery();
         }
         
         // Admin gereja hanya bisa lihat gereja mereka
-        return parent::getEloquentQuery()->where('id', $user->church_id);
+        if ($user && $user->church_id) {
+            return parent::getEloquentQuery()->where('id', $user->church_id);
+        }
+        
+        return parent::getEloquentQuery();
     }
 
     public static function getPages(): array
@@ -159,5 +179,12 @@ class ChurchResource extends Resource
             'create' => Pages\CreateChurch::route('/create'),
             'edit' => Pages\EditChurch::route('/{record}/edit'),
         ];
+    }
+
+    public static function canSetDefault(): bool
+    {
+        /** @var User|null $user */
+        $user = Filament::auth()->user();
+        return $user && $user->isSuperAdmin();
     }
 }

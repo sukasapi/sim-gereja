@@ -53,6 +53,13 @@
             <div class="text-center mb-12">
                 <h3 class="text-3xl font-bold text-gray-900 mb-4">Gereja yang Terdaftar</h3>
                 <p class="text-lg text-gray-600">Pilih gereja Anda untuk mengakses layanan</p>
+                <div class="mt-4 p-4 bg-blue-50 rounded-lg max-w-2xl mx-auto">
+                    <p class="text-blue-800 text-sm">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        <strong>Fitur Baru:</strong> Superadmin dapat mengatur gereja mana yang akan ditampilkan sebagai halaman depan website. 
+                        Jika ada gereja yang dipilih sebagai default, halaman ini akan menampilkan company profile gereja tersebut.
+                    </p>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -92,9 +99,16 @@
                         </div>
 
                         <div class="flex items-center justify-between">
-                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $church->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
-                                {{ $church->is_active ? 'Aktif' : 'Tidak Aktif' }}
-                            </span>
+                            <div class="flex flex-col space-y-1">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $church->is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800' }}">
+                                    {{ $church->is_active ? 'Aktif' : 'Tidak Aktif' }}
+                                </span>
+                                @if($church->is_default)
+                                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                                        <i class="fas fa-star mr-1"></i>Halaman Depan
+                                    </span>
+                                @endif
+                            </div>
                             <div class="flex space-x-2">
                                 @if($church->website)
                                     <a href="{{ $church->website }}" target="_blank" class="text-blue-600 hover:text-blue-800">

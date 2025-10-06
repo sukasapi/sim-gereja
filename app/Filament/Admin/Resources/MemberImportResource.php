@@ -102,7 +102,7 @@ class MemberImportResource extends Resource
                             ->label('File CSV')
                             ->acceptedFileTypes(['text/csv', 'application/csv'])
                             ->required()
-                            ->helperText('Format CSV: nama, tanggal_lahir, jenis_kelamin, alamat, telepon, email, wilayah, ayah, ibu, tanggal_gabung, status_baptis, status_sidi, catatan_pelayanan, catatan_umum')
+                            ->helperText('Format CSV: nama, tanggal_lahir, jenis_kelamin, alamat, telepon, email, wilayah, ayah, ibu, tanggal_gabung, tanggal_baptis, tanggal_sidi, pendidikan, pekerjaan, catatan_pelayanan, catatan_umum. Format tanggal: dd-mm-yyyy')
                             ->disk('local')
                             ->directory('imports')
                             ->visibility('private'),
