@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicProposalController;
+use App\Http\Controllers\ChurchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,10 @@ use App\Http\Controllers\PublicProposalController;
 |
 */
 
-Route::get('/', function () {
-    return redirect('/admin/login');
-});
+// Public routes
+Route::get('/', [ChurchController::class, 'index'])->name('home');
+Route::get('/churches', [ChurchController::class, 'list'])->name('churches.index');
+Route::get('/churches/{church}', [ChurchController::class, 'show'])->name('churches.show');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -32,8 +34,6 @@ Route::middleware('auth')->group(function () {
 Route::get('/cekproposal', [PublicProposalController::class, 'index'])->name('public.proposals.index');
 Route::get('/cekproposal/{proposal}', [PublicProposalController::class, 'show'])->name('public.proposals.show');
 
-Route::get('/admin/login', function () {
-    return view('auth.login');
-})->name('admin.login');
+// Route admin login dihapus karena Filament sudah handle otomatis
 
 require __DIR__.'/auth.php';
