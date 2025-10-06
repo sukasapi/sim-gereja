@@ -27,6 +27,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'church_id',
     ];
 
     /**
@@ -75,5 +76,23 @@ class User extends Authenticatable
     public function isJemaat(): bool
     {
         return $this->hasRole(self::ROLE_JEMAAT);
+    }
+
+    // Relasi ke Church
+    public function church()
+    {
+        return $this->belongsTo(Church::class);
+    }
+
+    // Scope untuk user berdasarkan gereja
+    public function scopeForChurch($query, $churchId)
+    {
+        return $query->where('church_id', $churchId);
+    }
+
+    // Scope untuk superadmin (tidak terikat gereja)
+    public function scopeSuperAdmin($query)
+    {
+        return $query->where('role', self::ROLE_SUPERADMIN);
     }
 }

@@ -10,7 +10,6 @@ class FilamentLoginResponse extends BaseLoginResponse
 {
     public function toResponse($request): RedirectResponse
     {
-        $url = redirect()->intended(filament()->getHomeUrl())->getTargetUrl();
-        return Redirect::to($url);
+        return redirect()->intended(filament()->getHomeUrl());
     }
 } 
