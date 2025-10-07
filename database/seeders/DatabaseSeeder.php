@@ -19,6 +19,8 @@ class DatabaseSeeder extends Seeder
             RegionTypeSeeder::class,
             RegionSeeder::class,
             MemberSeeder::class,
+            CategorySeeder::class,
+            PostSeeder::class,
         ]);
 
         // Buat user superadmin

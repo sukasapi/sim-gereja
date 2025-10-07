@@ -95,4 +95,10 @@ class User extends Authenticatable
     {
         return $query->where('role', self::ROLE_SUPERADMIN);
     }
+
+    // Relasi ke Post
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

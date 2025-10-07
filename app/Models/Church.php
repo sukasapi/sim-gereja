@@ -55,6 +55,12 @@ class Church extends Model
         return $this->hasMany(User::class);
     }
 
+    // Relasi ke Post
+    public function posts(): HasMany
+    {
+        return $this->hasMany(Post::class);
+    }
+
     // Scope untuk gereja aktif
     public function scopeActive($query)
     {
